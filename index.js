@@ -1,5 +1,5 @@
 // n is refering to an n+1 sized maze
-const n = 5;
+const n = 9;
 
 var maze = [{
     x: 0,
@@ -17,13 +17,24 @@ for(var i=0;i<(n+1);i++){
     // main_divs.push(main_div)
     for(var j=0;j<(n+1);j++){
         var div = window.document.createElement("div");
-        div.classList.add("rect")
+        div.classList.add("invisible-rect")
+        div.classList.add("add-left")
+        div.classList.add("add-up")
+        if(j==n){
+            div.classList.add("add-right")
+        }
+        if(i==n){
+            div.classList.add("add-down")
+        }
         div.id=`${i},${j}`      
         main_div.appendChild(div);
 
     }
     body.appendChild(main_div);
 }
+
+
+
 const directions=[];
 function free(node,maze) {
     var neighbors = [];
@@ -85,30 +96,26 @@ function connecting_nodes(node,maze,directions) {
             maze.push({ x: free_neighbors[random].x, y: free_neighbors[random].y });
             var div1 = window.document.getElementById(`${node.x},${node.y}`)
             var div2 = window.document.getElementById(`${free_neighbors[random].x},${free_neighbors[random].y}`)
-            div.classList.add("rect")
             if(maze[maze.length-1].x>node.x){
                 //Down 
                 directions.push("down")
-                div1.classList.add("down")
-                div2.classList.add("up")
+                div2.classList.add("hide-up")
             }
             else if(maze[maze.length-1].x<node.x){
                 //Up
                 directions.push("up")
-                div1.classList.add("up")
-                div2.classList.add("down")
+                div1.classList.add("hide-up")
             }
             else if(maze[maze.length-1].y>node.y){
                 //Right
                 directions.push("right")
-                div1.classList.add("right")
-                div2.classList.add("left")
+                div2.classList.add("hide-left")
             }
             else if(maze[maze.length-1].y<node.y){
                 //Left
                 directions.push("left")
-                div1.classList.add("left")
-                div2.classList.add("right")
+                div1.classList.add("hide-left")
+
             }
             node = { x: free_neighbors[random].x, y: free_neighbors[random].y };
             counter++;
@@ -139,18 +146,18 @@ var node = {
 }
 connecting_nodes(node,maze,directions);
 
-var div_last = window.document.getElementById(`${maze[maze.length-1].x},${maze[maze.length-1].y}`)
-if(directions[maze.length-2]=="right"){
-    div_last.classList.add("right")
-}
-else if(directions[maze.length-2]=="left"){
-    div_last.classList.add("left")
-}
-else if(directions[maze.length-2]=="down"){
-    div_last.classList.add("down")
-}
-else if(directions[maze.length-2]=="up"){
-    div_last.classList.add("up")
-}
+// var div_last = window.document.getElementById(`${maze[maze.length-1].x},${maze[maze.length-1].y}`)
+// if(directions[maze.length-2]=="right"){
+//     div_last.classList.add("right")
+// }
+// else if(directions[maze.length-2]=="left"){
+//     div_last.classList.add("left")
+// }
+// else if(directions[maze.length-2]=="down"){
+//     div_last.classList.add("down")
+// }
+// else if(directions[maze.length-2]=="up"){
+//     div_last.classList.add("up")
+// }
 console.log(directions)
 console.log(maze)
