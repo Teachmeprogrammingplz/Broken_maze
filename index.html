@@ -4,12 +4,26 @@
 	<title>Brick Breaker</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="index.css">
-	
+	<style>
+
+	</style>
 </head>
 
-<body id="body">	
+<body id="body">
+	
+	<div class="rangediv">
+        <span id="rangeValue">30</span>
+        <Input id="slider" class="range" type="range"  value="50" min="30" max="200" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+    </div>
 
 
+	<canvas id="myCanvas"></canvas>
 </body>
-<script type="text/javascript" src="./index.js"></script>
+<script type="module" src="./index.js"></script>
+
+<script type="text/javascript">
+	function rangeSlide(value) {
+		document.getElementById('rangeValue').innerHTML = value;
+	}
+</script>
 </html>
